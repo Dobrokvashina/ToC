@@ -1,0 +1,6 @@
+C:\Users\Саоша\Desktop\Универ\3 курс\ТИК\ToC\ToC\bin\Release\ToC.exe.config
+C:\Users\Саоша\Desktop\Универ\3 курс\ТИК\ToC\ToC\bin\Release\ToC.exe
+C:\Users\Саоша\Desktop\Универ\3 курс\ТИК\ToC\ToC\bin\Release\ToC.pdb
+C:\Users\Саоша\Desktop\Универ\3 курс\ТИК\ToC\ToC\obj\Release\ToC.csprojResolveAssemblyReference.cache
+C:\Users\Саоша\Desktop\Универ\3 курс\ТИК\ToC\ToC\obj\Release\ToC.exe
+C:\Users\Саоша\Desktop\Универ\3 курс\ТИК\ToC\ToC\obj\Release\ToC.pdb
