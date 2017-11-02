@@ -22,8 +22,12 @@ namespace ToC
         {
             HuffmanList = new List<Symbol>();
             HuffmanList.AddRange(symbols);
+            
+            
             while (HuffmanList.Count > 1)
             {
+                HuffmanList.Sort();
+                HuffmanList.Reverse();
                 List<Symbol>.Enumerator en = HuffmanList.GetEnumerator();
                 en.MoveNext();
                 Symbol ch = en.Current;
@@ -48,7 +52,6 @@ namespace ToC
 
                 root.code = 0;
                 ShowAll(root.Son1, 1, root.code);
-
 
                 ShowAll(root.Son2, 1, (root.code + 1));
             }
