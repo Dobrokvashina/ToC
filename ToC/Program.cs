@@ -16,6 +16,9 @@ namespace ToC
             
             Console.WriteLine("H1: " + h1);
             HuffmanAndShenon.FindOneHuffman();
+            Console.WriteLine("_______-----------________________-----------_______________");
+            Console.ReadKey();
+            HuffmanAndShenon.FindOneShennon();
             Console.WriteLine("H2: " + EntropyCounter.getH2());
             Console.WriteLine("H3: " + EntropyCounter.getH3());
 

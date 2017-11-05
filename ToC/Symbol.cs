@@ -34,7 +34,7 @@ namespace ToC
         public Symbol Son1 { get; set; }
         public Symbol Son2 { get; set; }
         public double Enthropy { get; set; }
-        public long code { get; set; }
+        public string code { get; set; }
         
         public int CompareTo(Symbol other)
         {

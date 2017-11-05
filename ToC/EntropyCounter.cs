@@ -48,11 +48,13 @@ namespace ToC
                 for (int i = 0; i < line.Length; i++)
                 {
                     size++;
-                    current =  line.Substring(i,1).ToCharArray()[0];
 
+                    current = line[i];
+                    
                     if (!h1CountMap.TryGetValue(current, out value))
                     {
                         h1CountMap.Add(current, 1L);
+                        
                     }
                     else
                     {
