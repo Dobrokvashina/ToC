@@ -29,20 +29,15 @@ namespace ToC
             {
                 HuffmanList.Sort();
                 HuffmanList.Reverse();
-                List<Symbol>.Enumerator en = HuffmanList.GetEnumerator();
-                en.MoveNext();
-                Symbol ch = en.Current;
-                en = new List<Symbol>.Enumerator();
-                HuffmanList.Remove(ch);
-                en = HuffmanList.GetEnumerator();
-                en.MoveNext();
-                Symbol newOne = new Symbol(en.Current, ch);
-                HuffmanList.Remove(en.Current);
+                Symbol ch = HuffmanList[0];
+                Console.WriteLine(HuffmanList.Remove(HuffmanList[0]));
+                Symbol newOne = new Symbol(ch, HuffmanList[0]);
+                Console.WriteLine(HuffmanList.Remove(HuffmanList[0]));
                 HuffmanList.Add(newOne);
     
             }
             
-                ShowAllStart(HuffmanList.ToArray()[0]);
+            ShowAllStart(HuffmanList[0]);
             BinWriter.writeLines(result);
             
         }
