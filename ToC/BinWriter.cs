@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ToC
@@ -8,25 +10,78 @@ namespace ToC
     {
         public static void writeLines(List<Symbol> list)
         {
-            
-            BinaryWriter writer = new BinaryWriter(File.Open(@"c:\temp\output.bin",FileMode.Create));
-            
-            foreach (string line in EntropyCounter.lines)
+            BinaryWriter writer = new BinaryWriter(File.Open(@"c:\temp\output.bin",FileMode.Create),Encoding.UTF32);
+            string code = "";
+            string left = "";
+
+            if (!list[0].Character.Equals(null) && !list[0].Character.Equals('\0'))
             {
-                foreach (char c in line)
+                foreach (string line in EntropyCounter.lines)
                 {
-                    foreach (char c1 in findCode(c, list))
+                    foreach (char c in line)
                     {
-                        if (c1.Equals('0'))
+
+                        if (code.Length < 32)
                         {
-                            writer.Write(false);
+                            code += findCode(c, list);
+                        }
+                        else if (code.Length > 32)
+                        {
+                            left = code.Substring(32);
+                            code = code.Substring(0, 32);
+                            WriteIt(code, writer);
+                            code = left + findCode(c, list);
+                            left = "";
                         }
                         else
                         {
-                            writer.Write(true);
+                            WriteIt(code, writer);
+                            code = left + findCode(c, list);
+                            left = "";
+
                         }
-                    } 
+
+                    }
                 }
+            }
+            else
+            {
+                string pair = "";
+                foreach (string line in EntropyCounter.lines)
+                {
+                    foreach (char c in line)
+                    {
+
+                        if (pair.Length < 2)
+                        {
+                            pair += "" + c;
+                        }
+                        else
+                        {
+                            if (code.Length < 32)
+                            {
+                                code += findCode(pair, list);
+                            }
+                            else if (code.Length > 32)
+                            {
+                                left = code.Substring(32);
+                                code = code.Substring(0, 32);
+                                WriteIt(code, writer);
+                                code = left + findCode(pair, list);
+                                left = "";
+                            }
+                            else
+                            {
+                                WriteIt(code, writer);
+                                code = left + findCode(pair, list);
+                                left = "";
+
+                            }
+                            pair = "";
+
+                        }
+                    }
+                } 
             }
             writer.Close();
             
@@ -42,5 +97,46 @@ namespace ToC
             }
             return null;
         }
+        
+        public static string findCode(string c, List<Symbol> list)
+        {
+            foreach (Symbol symbol in list)
+            {
+                if (symbol.Pair.Equals(c))
+                    return symbol.code;
+                
+            }
+            return null;
+        }
+
+
+        public static void WriteIt(string code, BinaryWriter writer)
+        {
+            int count = 0;
+            int res = 0;
+            for (int y = code.Length - 1; y >= 0; y--)
+            {
+                if (code[y].Equals('1'))
+                {
+                    res += (int)Math.Pow(2, count);
+                }
+                count++;
+            }
+            
+            writer.Write(res);
+        }
+
+        public static void ReadIt(int mode)
+        {
+            BinaryReader reader = new BinaryReader(File.Open(@"c:\temp\output.bin",FileMode.Open), Encoding.UTF32);
+            if (mode == 2)
+            {
+                while (!reader.PeekChar().Equals('\0'))
+                {
+                    int cur = reader.ReadInt32();
+                }
+            }
+        }
+        
     }
 }

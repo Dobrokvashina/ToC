@@ -30,9 +30,9 @@ namespace ToC
                 HuffmanList.Sort();
                 HuffmanList.Reverse();
                 Symbol ch = HuffmanList[0];
-                Console.WriteLine(HuffmanList.Remove(HuffmanList[0]));
+                HuffmanList.Remove(HuffmanList[0]);
                 Symbol newOne = new Symbol(ch, HuffmanList[0]);
-                Console.WriteLine(HuffmanList.Remove(HuffmanList[0]));
+                HuffmanList.Remove(HuffmanList[0]);
                 HuffmanList.Add(newOne);
     
             }
@@ -119,7 +119,14 @@ namespace ToC
             }
             else
             {
-                return new Symbol(list[0].Character, list[0].Enthropy);
+                if (!list[0].Character.Equals(null) && !list[0].Character.Equals('\0'))
+                {
+                    return new Symbol(list[0].Character, list[0].Enthropy);
+                }
+                else
+                {
+                    return new Symbol(list[0].Pair, list[0].Enthropy);
+                }
             }
         }
         

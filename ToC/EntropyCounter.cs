@@ -121,9 +121,11 @@ namespace ToC
 
             double mainP, temp, p, logP;
 
+            string first, para = "";
             foreach (KeyValuePair<char, TwoCharacters> entry in map)
             {
 
+                first = "" +entry.Key;
                 Dictionary<char, long> characterLongMap = entry.Value.getCharacterLongMap();
                 temp = 0;
                 long tc;
@@ -133,8 +135,10 @@ namespace ToC
                 String key;
                 foreach (KeyValuePair<char, long> longEntry in characterLongMap)
                 {
+                    para = longEntry.Key + first;
                     p = ((double)longEntry.Value / (size-1)) / mainP;
-
+                    Symbol pair = new Symbol(para,p);
+                    HuffmanAndShenon.addSymbol(pair);
                     logP = getLog2(p);
                     temp += Math.Abs(logP * p);
                 }
