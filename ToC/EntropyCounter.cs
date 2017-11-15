@@ -16,7 +16,7 @@ namespace ToC
             lines = new List<string>();
 
             
-            string path = @"c:\temp\Anna Karenina.txt";
+            string path = @"C:\temp\AnnaKarenina.txt";
             Console.WriteLine("Reading   "+path);
             try
             {
@@ -35,6 +35,7 @@ namespace ToC
                 Console.WriteLine("The process failed: {0}", e.ToString());
             }
         }
+        
         public static double getH1()
         {
 
@@ -136,6 +137,7 @@ namespace ToC
                 foreach (KeyValuePair<char, long> longEntry in characterLongMap)
                 {
                     para = longEntry.Key + first;
+                    //para = first + longEntry.Key ;
                     p = ((double)longEntry.Value / (size-1)) / mainP;
                     Symbol pair = new Symbol(para,p);
                     HuffmanAndShenon.addSymbol(pair);

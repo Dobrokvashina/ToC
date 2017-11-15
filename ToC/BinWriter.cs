@@ -8,11 +8,15 @@ namespace ToC
 {
     public static class BinWriter
     {
+
+        public static int size;
+        
         public static void writeLines(List<Symbol> list)
         {
-            BinaryWriter writer = new BinaryWriter(File.Open(@"c:\temp\output.bin",FileMode.Create),Encoding.UTF32);
+            BinaryWriter writer = new BinaryWriter(File.Open(@"c:\temp\output.bin",FileMode.Create),Encoding.UTF32);           
             string code = "";
             string left = "";
+            size = 0;
 
             if (!list[0].Character.Equals(null) && !list[0].Character.Equals('\0'))
             {
@@ -21,14 +25,16 @@ namespace ToC
                     foreach (char c in line)
                     {
 
-                        if (code.Length < 32)
+                        size += findCode(c, list).Length;
+                        
+                       if (code.Length < 30)
                         {
                             code += findCode(c, list);
                         }
-                        else if (code.Length > 32)
+                        else if (code.Length > 30)
                         {
-                            left = code.Substring(32);
-                            code = code.Substring(0, 32);
+                            left = code.Substring(30);
+                            code = code.Substring(0, 30);
                             WriteIt(code, writer);
                             code = left + findCode(c, list);
                             left = "";
@@ -51,6 +57,7 @@ namespace ToC
                 {
                     foreach (char c in line)
                     {
+                        
 
                         if (pair.Length < 2)
                         {
@@ -58,14 +65,17 @@ namespace ToC
                         }
                         else
                         {
-                            if (code.Length < 32)
+                            size += findCode(pair, list).Length;
+                            
+                            if (code.Length < 30)
                             {
                                 code += findCode(pair, list);
+                                
                             }
-                            else if (code.Length > 32)
+                            else if (code.Length > 30)
                             {
-                                left = code.Substring(32);
-                                code = code.Substring(0, 32);
+                                left = code.Substring(30);
+                                code = code.Substring(0, 30);
                                 WriteIt(code, writer);
                                 code = left + findCode(pair, list);
                                 left = "";
@@ -83,8 +93,11 @@ namespace ToC
                     }
                 } 
             }
+            
+            
             writer.Close();
             
+            //Console.WriteLine("Count =" + (double)size/EntropyCounter.sym);
         }
 
         public static string findCode(char c, List<Symbol> list)
@@ -113,17 +126,16 @@ namespace ToC
         public static void WriteIt(string code, BinaryWriter writer)
         {
             int count = 0;
-            int res = 0;
+            double res = 0;
             for (int y = code.Length - 1; y >= 0; y--)
             {
                 if (code[y].Equals('1'))
                 {
-                    res += (int)Math.Pow(2, count);
+                    res += Math.Pow(2, count);
                 }
                 count++;
             }
-            
-            writer.Write(res);
+            writer.Write(Int32.Parse(res.ToString()));
         }
 
         public static void ReadIt(int mode)
